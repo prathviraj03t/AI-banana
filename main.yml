@@ -1,0 +1,19 @@
+name: YouTube AutoUpload
+on:
+  schedule:
+    - cron: '0 10 * * *'  # हर दिन सुबह 10 बजे IST
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: |
+          pip install selenium gspread
+          sudo apt-get install -y chromium-chromedriver
+      - name: Run script
+        run: python main.py
